@@ -1,11 +1,21 @@
-import { useEffect, useState } from "react";
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import LoginPage from "./pages/auth/login";
+import SignupPage from "./pages/auth/signup";
+import DashboardPage from "./pages/home/dashboard"
+
 
 function App() {
  
 
   return (
-    <div className="bg-zinc-800 h-screen flex flex-col items-center justify-center">
-      <div className="text-3xl text-amber-300 font-bold">hello world</div>
+    <div id="root">
+    <Router>
+      <Routes>
+        <Route path="/auth/login" element={<LoginPage />} />    
+        <Route path="/auth/signup" element={<SignupPage />} />   
+        <Route path ="/dashboard" element={<DashboardPage />} />      
+      </Routes>
+    </Router>
     </div>
   );
 }

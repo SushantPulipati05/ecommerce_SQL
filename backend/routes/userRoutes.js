@@ -2,7 +2,8 @@ const { AdminPool, CustomerPool } = require('../database/db');
 const mysql = require('mysql2');
 const bcrypt = require('bcryptjs');
 const express = require('express');
-const jwt = require('jsonwebtoken')
+const jwt = require('jsonwebtoken');
+const { verifyToken } = require('../middleware/auth');
 const router = express.Router();
 
 const generateToken = (userId, role) => {
@@ -44,6 +45,8 @@ router.post('/login', async(req, res)=>{
     if (!email || !password || !role) {
         return res.status(400).json({ message: 'Please provide the email, role and password.' });
     }
+    console.log("Received Role:", role); 
+    console.log("Full Request Body:", req.body);
     try {
         let pool;
 
@@ -55,7 +58,7 @@ router.post('/login', async(req, res)=>{
             return res.status(400).json({ message: 'Invalid role.' });
         }
 
-        const [rows] = await AdminPool.query('SELECT * FROM users WHERE Email = ?', [email])
+        const [rows] = await pool.query('SELECT * FROM users WHERE Email = ?', [email])
         if(rows.length === 0){
             return res.status(401).json({ message: 'Invalid email or password.' });
         }
@@ -83,6 +86,5 @@ router.post('/login', async(req, res)=>{
         
     }
 })
-
 
 module.exports = router;

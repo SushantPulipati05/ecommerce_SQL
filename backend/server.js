@@ -6,6 +6,7 @@ const {pool} = require('./database/db.js')
 const {admin_connection,customer_connection} = require('./database/db.js')
 const {fetchTables} = require('./database/queries.js')
 const userRoutes = require('./routes/userRoutes.js')
+const productRoutes = require('./routes/productRoutes.js')
 require('./database/schema.js')
 
 dotenv.config();
@@ -17,6 +18,7 @@ admin_connection();
 customer_connection();
 
 app.use('/auth', userRoutes);
+app.use('/home', productRoutes)
 
 
 app.get("/", async(req, res) => {
