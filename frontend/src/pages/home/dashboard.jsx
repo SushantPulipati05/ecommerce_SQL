@@ -1,5 +1,6 @@
 import React from "react";
 import Navbar from "../../components/Navbar";
+import Footer from "../../components/Footer";
 
 const HomePage = () => {
 
@@ -23,12 +24,12 @@ const HomePage = () => {
   ]
 
   return (
-    <div className="min-h-screen bg-gray-100">
+    <div className="min-h-screen bg-gray-300">
       {/* Navbar */}
       <Navbar />
 
       {/* Hero Section */}
-      <header className="relative  bg-center h-100 flex items-center justify-center text-white" style={{ backgroundImage: "url('https://t4.ftcdn.net/jpg/02/49/50/15/360_F_249501541_XmWdfAfUbWAvGxBwAM0ba2aYT36ntlpH.jpg')" }}>
+      <header className="relative  bg-center bg-cover h-100 flex items-center justify-center text-white" style={{ backgroundImage: "url('https://www.creativefabrica.com/wp-content/uploads/2021/04/26/Creative-Fashion-Sale-Banner-Graphics-11345601-1.jpg')" }}>
         
       </header>
 
@@ -38,8 +39,8 @@ const HomePage = () => {
         <div className="grid grid-cols-2 gap-4">          
           
           <div 
-            className="relative h-130 bg-center bg-cover p-4 shadow-lg" 
-            style={{ backgroundImage: "url('https://www.skullcandy.eu/cdn/shop/files/Hesh_ANC_buy_box_black_4_d20df017-dab4-4248-a533-ff2cfd5c8aa2.png?v=1740505402&width=1445')" }}
+            className="relative h-132 bg-center bg-cover p-4 shadow-lg" 
+            style={{ backgroundImage: "url('https://media.wired.com/photos/6463dbca88479249e0cc290e/master/w_2560%2Cc_limit/Dyzon%2520Zone%2520Review%2520Featured%2520Gear.jpg')" }}
           >
             <div className="absolute inset-0 bg-black bg-opacity-50 opacity-0 hover:opacity-50 flex items-center justify-center transition-opacity">
               <span className="text-white font-bold text-xl">Technology</span>
@@ -79,9 +80,7 @@ const HomePage = () => {
 
 
       {/* Footer */}
-      <footer className="bg-gray-800 text-white text-center p-4 mt-8">
-        <p>&copy; 2025 ShopEase. All rights reserved.</p>
-      </footer>
+      <Footer />      
     </div>
   );
 };

@@ -15,7 +15,7 @@ function Navbar() {
   const handleLogout = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("user");
-    window.location.href = "/login"; // Redirect to login
+    window.location.href = "/auth/login"; 
   };
 
   return (
@@ -48,17 +48,17 @@ function Navbar() {
         <div
           className="relative"
           onMouseEnter={() => setShowDropdown(true)}
-          onMouseLeave={() => setShowDropdown(false)}
+          onMouseLeave={() => setTimeout(() => setShowDropdown(false), 100)}
         >
           <img
-            src={user?.avatar ||  "https://api16-normal-useast1a.lemon8-app.com/seo/image?item_id=7374880320493093381&index=1&sign=37f9c9edc6f78d6817f95dc92395af2c"}
+            src={user?.avatar ||  "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS5FV2oJ9b6YmXcgIKzBfkJSByk37RB1U3Mrg&s"}
             alt="User Avatar"
             className="w-12 h-12 rounded-full border-2 border-blue-500 shadow-md cursor-pointer"
           />
 
           {/* Dropdown Menu */}
           {showDropdown && (
-            <div className="absolute right-0 mt-2 w-48 bg-white shadow-lg rounded-md overflow-hidden border border-gray-200">
+            <div className="absolute right-0 w-48 bg-white shadow-lg rounded-md overflow-hidden border border-gray-200 z-50">
               <div className="px-4 py-2 text-gray-800 flex items-center gap-2 hover:bg-gray-100 cursor-pointer">
                 <User size={18} />
                 <span>Profile</span>
