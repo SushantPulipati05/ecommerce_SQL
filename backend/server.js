@@ -18,7 +18,7 @@ admin_connection();
 customer_connection();
 
 app.use('/auth', userRoutes);
-app.use('/home', productRoutes)
+app.use('/dashboard', productRoutes)
 
 
 app.get("/", async(req, res) => {

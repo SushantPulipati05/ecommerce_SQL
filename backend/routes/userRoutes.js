@@ -41,6 +41,7 @@ router.post('/signup', async(req, res)=>{
 
 router.post('/login', async(req, res)=>{
     const {email, password, role} = req.body;
+    console.log("Login Attempt:", email, role);
 
     if (!email || !password || !role) {
         return res.status(400).json({ message: 'Please provide the email, role and password.' });
@@ -63,23 +64,32 @@ router.post('/login', async(req, res)=>{
             return res.status(401).json({ message: 'Invalid email or password.' });
         }
         const user = rows[0];
+        console.log("User found:", user);
         
-        const hashedPassword = user.PasswordHash;       
-        
+        const hashedPassword = user.PasswordHash;             
         const isMatch = await bcrypt.compare(password, hashedPassword);
         
         if(!isMatch){
+            console.log("Password Mismatch")
             return res.status(401).json({ message: 'Invalid email or password.' });
         }
 
         const token = generateToken(user.UserId, user.Role);
+        console.log("generate token:", token)
+        console.log(user.Name)
+        console.log(user.Email)
 
         res.status(200).json({
             message: 'Login successful!',
-            token
+            token,
+            user:{
+                name: user.Name,
+                email: user.Email
+            }
         });
 
     } catch (error) {
+        console.log("server error")
         res.status(500).json({
             message: error.message            
         })

@@ -25,11 +25,17 @@ const LoginPage = () => {
           },
         })
 
+        console.log("RESPONSE DATA: ",response.data)
+
         setMessage(response.data)
         if (response.status === 200) {
+          localStorage.setItem("token", response.data.token);
+          localStorage.setItem("user", JSON.stringify(response.data.user));
+          setMessage("login successful");
           navigate("/dashboard"); 
         }
     } catch (error) {
+        console.error("Login Error:", error.response?.data || error.message); 
         setMessage(error.response?.data?.message || "login failed. Try again.");        
     }
   };
@@ -80,6 +86,11 @@ const LoginPage = () => {
           >
             Login
           </button>
+          <span 
+            className=" flex flex-col items-center font-light mt-4 cursor-pointer hover:text-blue-700"
+            onClick={() => {navigate("/auth/signup")}}>
+              Don't have an account? Sign up here!!
+            </span>
         </form>
       </div>
     </div>
