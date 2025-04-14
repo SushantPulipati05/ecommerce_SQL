@@ -3,6 +3,7 @@ import LoginPage from "./pages/auth/login";
 import SignupPage from "./pages/auth/signup";
 import DashboardPage from "./pages/home/dashboard"
 import ProtectedRoute from './components/protectedRoute';
+import CategoryPage from './pages/home/categoryPage';
 
 
 function App() {
@@ -14,7 +15,8 @@ function App() {
       <Routes>
         <Route path="/auth/login" element={<LoginPage />} />    
         <Route path="/auth/signup" element={<SignupPage />} />   
-        <Route path ="/dashboard" element={<ProtectedRoute element= {<DashboardPage />} />} />      
+        <Route path ="/dashboard" element={<ProtectedRoute element= {<DashboardPage />} />} />  
+        <Route path = "/product/category/:categoryName" element={<ProtectedRoute element= {<CategoryPage />} />} />
       </Routes>
     </Router>
     </div>

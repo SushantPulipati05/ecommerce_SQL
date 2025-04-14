@@ -1,9 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { Search, ShoppingCart, LogOut, User } from "lucide-react";
+import { Link } from "react-router-dom";
+import CartSidebar from "./cartSidebar";
+
 
 function Navbar() {
   const [user, setUser] = useState(null);
   const [showDropdown, setShowDropdown] = useState(false);
+  const [isCartOpen, setIsCartOpen] = useState(false);
+
 
   useEffect(() => {
     const storedUser = localStorage.getItem("user");
@@ -19,11 +24,15 @@ function Navbar() {
   };
 
   return (
+    <>
     <nav className="bg-white shadow-md px-20 py-4 flex justify-between items-center relative">
       {/* Logo */}
+      
+      <Link to = "/dashboard">
       <h1 className="text-3xl font-extrabold text-blue-600 tracking-wide">
         ShopEase
       </h1>
+      </Link>
 
       {/* Search Bar */}
       <form className="relative w-1/3 flex items-center">
@@ -75,11 +84,16 @@ function Navbar() {
         </div>
 
         {/* Shopping Cart Icon */}
-        <div className="flex items-center justify-center w-12 h-12 rounded-full bg-blue-600 hover:bg-blue-500 text-white cursor-pointer shadow-lg transition-all duration-300">
+        <div 
+          onClick={() => setIsCartOpen(true)}
+          className="flex items-center justify-center w-12 h-12 rounded-full bg-blue-600 hover:bg-blue-500 text-white cursor-pointer shadow-lg transition-all duration-300">
           <ShoppingCart size={24} />
         </div>
       </div>
     </nav>
+    <CartSidebar isOpen={isCartOpen} onClose={() => setIsCartOpen(false)} />
+
+    </>
   );
 }
 
