@@ -7,6 +7,7 @@ const {admin_connection,customer_connection} = require('./database/db.js')
 const {fetchTables} = require('./database/queries.js')
 const userRoutes = require('./routes/userRoutes.js')
 const productRoutes = require('./routes/productRoutes.js')
+const cartRoutes = require('./routes/cartRoutes.js')
 require('./database/schema.js')
 
 dotenv.config();
@@ -18,7 +19,8 @@ admin_connection();
 customer_connection();
 
 app.use('/auth', userRoutes);
-app.use('/dashboard', productRoutes)
+app.use('/api/products', productRoutes);
+app.use('/api/cart', cartRoutes)
 
 
 app.get("/", async(req, res) => {

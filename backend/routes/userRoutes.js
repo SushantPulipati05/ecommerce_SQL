@@ -29,11 +29,27 @@ router.post('/signup', async(req, res)=>{
             pool = CustomerPool;
         }
 
-        await pool.query(
+        const [result] = await pool.query(
             `INSERT INTO Users (Name, Email, PasswordHash, Role) VALUES (?, ?, ?, ?)`,
             [name, email, hashedPassword, role]
         );
-        res.status(201).json("User signup successful!!")
+        const userId = result.insertId;
+
+        const [rows] = await pool.query(`SELECT * FROM Users WHERE UserID = ?`, [userId]);
+        const user = rows[0];
+        const token = generateToken(user.UserID, user.Role);
+
+        console.log(user)
+
+        res.status(201).json({
+            message: 'Signup successful!',
+            token,
+            user: {
+                ID: user.UserID,
+                name: user.Name,
+                email: user.Email
+            }
+        });
     } catch (err) {
         res.status(500).json({ message: err.message });        
     }
@@ -83,6 +99,7 @@ router.post('/login', async(req, res)=>{
             message: 'Login successful!',
             token,
             user:{
+                ID: user.UserID,
                 name: user.Name,
                 email: user.Email
             }

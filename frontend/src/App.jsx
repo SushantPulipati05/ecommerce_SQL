@@ -4,6 +4,7 @@ import SignupPage from "./pages/auth/signup";
 import DashboardPage from "./pages/home/dashboard"
 import ProtectedRoute from './components/protectedRoute';
 import CategoryPage from './pages/home/categoryPage';
+import ProductPage from './pages/home/productPage';
 
 
 function App() {
@@ -17,6 +18,7 @@ function App() {
         <Route path="/auth/signup" element={<SignupPage />} />   
         <Route path ="/dashboard" element={<ProtectedRoute element= {<DashboardPage />} />} />  
         <Route path = "/product/category/:categoryName" element={<ProtectedRoute element= {<CategoryPage />} />} />
+        <Route path="/product/:productId" element={<ProtectedRoute element={<ProductPage />} />} />        
       </Routes>
     </Router>
     </div>

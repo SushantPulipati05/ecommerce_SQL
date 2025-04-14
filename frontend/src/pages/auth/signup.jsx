@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const SignupPage = () => {
   const [formData, setFormData] = useState({
@@ -10,6 +11,8 @@ const SignupPage = () => {
   });
 
   const [message, setMessage] = useState("");
+  const [isSuccess, setIsSuccess] = useState(false);
+  const navigate = useNavigate()
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -25,9 +28,21 @@ const SignupPage = () => {
         },
       });
 
-      setMessage(response.data);
+      const { message, token, user } = response.data;
+
+      localStorage.setItem("token", token);
+      localStorage.setItem("user", JSON.stringify(user));
+
+      setMessage(message);
+      setIsSuccess(true);
+      setTimeout(() => {
+        navigate("/dashboard"); // or wherever you want
+      }, 1500);
+
+
     } catch (error) {
       setMessage(error.response?.data?.message || "Signup failed. Try again.");
+      setIsSuccess(false);
     }
   };
 
@@ -35,7 +50,11 @@ const SignupPage = () => {
     <div className="min-h-screen flex items-center justify-center bg-gray-900 text-white">
     <div className="bg-gray-800 p-8 rounded-2xl shadow-lg w-full max-w-md">
       <h2 className="text-2xl font-semibold text-center mb-6">Sign Up</h2>
-      {message && <p className="text-center mb-4 text-red-500">{message}</p>}
+      {message && (
+          <p className={`text-center mb-4 ${isSuccess ? 'text-green-500' : 'text-red-500'}`}>
+            {message}
+          </p>
+        )}
       <form onSubmit={handleSubmit}>
         <div className="mb-4">
           <label className="block text-gray-300 mb-1">Name</label>

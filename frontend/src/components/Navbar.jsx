@@ -60,7 +60,7 @@ function Navbar() {
           onMouseLeave={() => setTimeout(() => setShowDropdown(false), 100)}
         >
           <img
-            src={user?.avatar ||  "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS5FV2oJ9b6YmXcgIKzBfkJSByk37RB1U3Mrg&s"}
+            src={user?.avatar ||  "https://dthezntil550i.cloudfront.net/4q/latest/4q2301050422341970021863663/4a98678a-b6ec-4501-b8ed-37635c3841ed.jpg"}
             alt="User Avatar"
             className="w-12 h-12 rounded-full border-2 border-blue-500 shadow-md cursor-pointer"
           />

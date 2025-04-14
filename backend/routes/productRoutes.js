@@ -8,13 +8,54 @@ const router = express.Router();
 
 
 
-router.get('/products', verifyToken , async(req,res)=>{
-    try {
-        const [products] = await CustomerPool.query('SELECT * FROM Products');
-        res.status(200).json(products);
-    } catch (error) {
-        res.status(500).json({ message: error.message });
+router.get('/by-category', async (req, res) => {
+    const { name } = req.query;
+  
+    if (!name) {
+      return res.status(400).json({ message: 'Category name is required' });
     }
-})
+  
+    try {
+      // Get CategoryID based on name
+      const [categoryRows] = await AdminPool.query(
+        `SELECT CategoryID FROM Categories WHERE Name = ?`,
+        [name]
+      );
+  
+      if (categoryRows.length === 0) {
+        return res.status(404).json({ message: 'Category not found' });
+      }
+  
+      const categoryId = categoryRows[0].CategoryID;
+  
+      // Get products in that category
+      const [products] = await AdminPool.query(
+        `SELECT * FROM Products WHERE CategoryID = ?`,
+        [categoryId]
+      );
+  
+      res.json({ category: name, products });
+    } catch (err) {
+      console.error('Error fetching products by category:', err);
+      res.status(500).json({ message: 'Internal server error' });
+    }
+  });
 
-module.exports = router;
+  router.get('/:productId', async(req, res) =>{
+    const { productId } = req.params;
+    try{
+        const [rows] = await AdminPool.query(`SELECT * FROM Products WHERE ProductID = ?`,[productId])
+
+        if(rows.length == 0){
+            return res.status(404).json({message: 'Product not found'})
+        }
+
+        return res.status(200).json(rows[0]);
+        
+    }catch (err) {
+        res.status(500).json({ message: err.message });
+    }
+    
+  })
+  
+  module.exports = router;
