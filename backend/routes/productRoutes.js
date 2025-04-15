@@ -51,11 +51,37 @@ router.get('/by-category', async (req, res) => {
         }
 
         return res.status(200).json(rows[0]);
-        
+
     }catch (err) {
         res.status(500).json({ message: err.message });
     }
     
   })
+
+  router.get('/get-reviews/:productId', async (req, res) => {
+    const { productId } = req.params;
   
+    try {
+      const [rows] = await AdminPool.query(
+        `SELECT 
+           pr.ReviewID, pr.Rating, pr.ReviewText, pr.CreatedAt,
+           u.Name AS UserName
+         FROM ProductReviews pr
+         JOIN Users u ON pr.UserID = u.UserID
+         WHERE pr.ProductID = ?`,
+        [productId]
+      );
+  
+      if (rows.length === 0) {
+        return res.status(404).json({ message: 'No reviews for this product' });
+      }
+  
+      return res.status(200).json(rows); // send all reviews
+    } catch (err) {
+      console.error('Error fetching reviews:', err);
+      res.status(500).json({ message: err.message });
+    }
+  });
+
+
   module.exports = router;

@@ -68,10 +68,12 @@ function Navbar() {
           {/* Dropdown Menu */}
           {showDropdown && (
             <div className="absolute right-0 w-48 bg-white shadow-lg rounded-md overflow-hidden border border-gray-200 z-50">
+              <Link to="/account">              
               <div className="px-4 py-2 text-gray-800 flex items-center gap-2 hover:bg-gray-100 cursor-pointer">
                 <User size={18} />
                 <span>Profile</span>
               </div>
+              </Link>
               <div
                 onClick={handleLogout}
                 className="px-4 py-2 text-red-600 flex items-center gap-2 hover:bg-gray-100 cursor-pointer"

@@ -53,18 +53,34 @@ function CartSidebar({ isOpen, onClose }) {
           {cartItems.length === 0 ? (
             <p className="text-gray-600">Your cart is empty.</p>
           ) : (
-            cartItems.map((item) => (
+            <>
+            {cartItems.map((item) => (
               <div
-                key={item.CartItemID}
-                className="flex justify-between items-center mb-4 text-black border-b pb-2"
-              >
+              key={item.CartItemID}
+              className="flex items-center gap-4 mb-4 text-black border-b pb-2"
+            >
+              <img
+                src={item.Image}
+                alt={item.Name}
+                className="w-16 h-16 object-cover rounded"
+              />
+            
+              <div className="flex justify-between items-center w-full">
                 <div>
                   <p className="font-semibold">{item.Name}</p>
                   <p className="text-sm text-gray-500">Qty: {item.Quantity}</p>
                 </div>
                 <p className="font-bold">₹{item.Price}</p>
               </div>
-            ))
+            </div>
+            ))}
+      
+            <div className="mt-4">
+              <button className="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                Proceed to Checkout
+              </button>
+            </div>
+          </>
           )}
         </div>
       </div>

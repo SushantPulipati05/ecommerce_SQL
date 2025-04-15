@@ -114,4 +114,32 @@ router.post('/login', async(req, res)=>{
     }
 })
 
+router.get('/get-user', async (req, res) => {
+    const { userId } = req.query; 
+  
+    if (!userId) {
+      return res.status(400).json({ message: 'No userId was given' });
+    }
+  
+    try {
+      const [rows] = await AdminPool.query(`SELECT * FROM users WHERE UserID = ?`, [userId]);
+  
+      if (rows.length === 0) {
+        return res.status(404).json({ message: 'User not found' });
+      }
+  
+      const user = rows[0];
+      
+      
+      delete user.Password;
+  
+      res.status(200).json({ user });
+    } catch (err) {
+      console.error('Error fetching user:', err);
+      res.status(500).json({ message: err.message });
+    }
+  });
+  
+
+
 module.exports = router;

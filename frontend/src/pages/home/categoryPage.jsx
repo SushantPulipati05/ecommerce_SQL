@@ -31,7 +31,7 @@ function CategoryPage() {
   }, [categoryName]);
 
   return (
-    <div className="flex flex-col min-h-screen">
+    <div className="flex flex-col min-h-screen bg-zinc-200">
       <Navbar />
 
       <main className="flex-grow px-10 py-6">
@@ -44,18 +44,18 @@ function CategoryPage() {
           <p>No products found in this category.</p>
         )}
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 ">
           {products.map(product => (
             <div 
               key={product.ProductID} 
-              className="bg-gray-800 p-4 rounded-xl shadow hover:shadow-lg transition"
+              className="bg-gray-800 p-4 rounded-xl cursor-pointer shadow hover:shadow-lg transition transition-transform hover:scale-102"
               onClick={()=>{handleCardClick(product.ProductID)}}>
               <img
                 src={product.ImageURL}
                 alt={product.Name}
                 className="w-full h-48 object-cover rounded mb-4"
               />
-              <h2 className="text-xl font-semibold mb-2">{product.Name}</h2>              
+              <h2 className="text-xl text-white font-semibold mb-2">{product.Name}</h2>              
               <p className="text-lg font-bold text-green-400">${product.Price}</p>
             </div>
           ))}
