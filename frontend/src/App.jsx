@@ -7,6 +7,8 @@ import CategoryPage from './pages/home/categoryPage';
 import ProductPage from './pages/home/productPage';
 import ProfilePage from './pages/home/profilePage';
 import SingleCheckout from './pages/checkout/singleCheckout';
+import MultipleCheckout from './pages/checkout/multipleCheckout';
+import SuccessfulCheckout from './pages/checkout/successfulCheckout';
 
 
 function App() {
@@ -23,6 +25,8 @@ function App() {
         <Route path="/product/:productId" element={<ProtectedRoute element={<ProductPage />} />} />
         <Route path="/account" element={<ProtectedRoute element={<ProfilePage />} />} />
         <Route path="/checkout" element={<ProtectedRoute element={<SingleCheckout />} />} /> 
+        <Route path="/cart-checkout" element={<ProtectedRoute element={<MultipleCheckout />} />} />
+        <Route path="/successful-checkout/:orderId" element={<ProtectedRoute element={<SuccessfulCheckout />} />} />
       </Routes>
     </Router>
     </div>

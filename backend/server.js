@@ -8,7 +8,8 @@ const {fetchTables} = require('./database/queries.js')
 const userRoutes = require('./routes/userRoutes.js')
 const productRoutes = require('./routes/productRoutes.js')
 const cartRoutes = require('./routes/cartRoutes.js')
-require('./database/schema.js')
+const orderRoutes = require('./routes/orderRoutes.js')
+
 
 dotenv.config();
 
@@ -20,7 +21,8 @@ customer_connection();
 
 app.use('/auth', userRoutes);
 app.use('/api/products', productRoutes);
-app.use('/api/cart', cartRoutes)
+app.use('/api/cart', cartRoutes);
+app.use('/api/orders',orderRoutes)
 
 
 app.get("/", async(req, res) => {
